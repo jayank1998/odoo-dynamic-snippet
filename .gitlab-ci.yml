@@ -1,0 +1,50 @@
+image: registry.gitlab.com/techreceptivesint/docker-images:15.0
+
+stages:
+    - test
+    - build
+
+services: 
+    - name: registry.gitlab.com/techreceptivesint/docker-images:pg12.0
+      alias: postgres9
+
+    - name: docker:dind
+
+variables:
+    POSTGRES_DB: odoo
+    POSTGRES_USER: odoo
+    POSTGRES_PASSWORD: odoo
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: "5432"
+
+run_flake8:
+    stage: test
+
+    script:
+        - export FLAKE8_TEST='1'
+        - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/techreceptivesint/automated-testing-tools.git
+        - mv automated-testing-tools/auto_test_tools/run_test.py . && python3 run_test.py
+
+run_pylint:
+    stage: test
+
+    script:
+        - export PYLINT_TEST='1'
+        - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/techreceptivesint/automated-testing-tools.git
+        - mv automated-testing-tools/auto_test_tools/run_test.py . && python3 run_test.py
+
+run_code_coverage:
+    stage: test
+
+    script:
+        - export COV_TEST='1'
+        - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/techreceptivesint/automated-testing-tools.git
+        - mv automated-testing-tools/auto_test_tools/run_test.py . && python3 run_test.py
+
+run_without_demo:
+    stage: test
+
+    script:
+        - export DEMO_TEST='1'
+        - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/techreceptivesint/automated-testing-tools.git
+        - mv automated-testing-tools/auto_test_tools/run_test.py . && python3 run_test.py
