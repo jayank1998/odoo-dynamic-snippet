@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_found">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="oe_structure">
+                    <input id="mytime" class="d-none" t-att-value="time1"></input>
+                    <input id="myprice" class="d-none" t-att-value="price"></input>
+                    <h3>
+                        <center>
+                            <b>
+                                <u>24 Hours Bitcoin Graph</u>
+                            </b>
+                        </center>
+                    </h3>
+                    <span>
+                        Current Price:
+                        <t t-esc="current_price"/>
+                        $
+                    </span>
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                    <script>
+                        const ctx = document.getElementById('myChart').getContext('2d');
+                        var my_time = document.getElementById("mytime").value
+                        var my_price = document.getElementById("myprice").value
+                        var lastIndex = my_time.length;
+                        str = my_time.substring(1, lastIndex);
+                        var labell = str.split(',');
+                        var lastIndex = my_price.length;
+                        str = my_price.substring(1, lastIndex);
+                        var priceee = str.split(',');
+                        var result = priceee.map(function(x){
+                        return parseInt(x,10);
+                        });
+                        var min = Math.min.apply(null, result) - Math.min.apply(null, result)/100
+                        var max = Math.max.apply(null, result) + Math.max.apply(null, result)/100
+                        console.log(min, "========", max)
+
+                        const myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                        labels: labell,
+                        datasets: [{
+                        label: 'Price in $',
+                        data: result,
+                        backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                        }]
+                        },
+                        options: {
+                        scales: {
+                        Y: {
+                        suggestedMin: min,
+                        suggestedMax: max,
+                        fixedStepSize: 500,
+                        }
+                        }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

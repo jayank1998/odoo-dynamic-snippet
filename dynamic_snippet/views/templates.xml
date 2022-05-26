@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <!--    Snippet Banner start    -->
+        <template id="demo_1" name="Job Snippet">
+            <section class="moldeo_snippet_customer">
+                <div class="container pt-3 pb-3">
+                    <h3>
+                        <center>
+                            Job Recruitment
+                        </center>
+                    </h3>
+                    <div class="mt-12 col-md-12 row" id="snippet_customer_container" itemscope=""
+                         itemtype="http://schema.org/Organization">
+                        <div class="col-12 text-muted text-center">
+                            <h3>
+                                <b>Here will show Jobs.</b>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </template>
+        <!--    Snippet Banner End      -->
+
+        <!--    Snippets Assets     -->
+        <template id="demo_snippets" inherit_id="website.snippets">
+            <xpath expr="//div[@id='snippet_structure']" position="before">
+                <div id="snippet_demo_snippets" class="o_panel">
+                    <div class="o_panel_body">
+                        <t t-snippet="dynamic_snippet.demo_1"
+                           t-thumbnail="/dynamic_snippet/static/src/img/snippet_header.jpeg"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

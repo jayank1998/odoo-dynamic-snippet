@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="btc_data">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="oe_structure">
+                    <center>
+                        <h2>Nothing created or published yet.</h2>
+                    </center>
+                </div>
+            </div>
+        </t>
+    </t>
+</templates>
