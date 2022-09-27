@@ -1,1 +1,1 @@
-# odoo-dynamic-data
+# odoo-dynamic-data-snippet
